@@ -5,7 +5,250 @@ All notable changes to Casterm will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.2] - 2025-01-08
+## [Unreleased]
+
+### Protocol Support
+- [x] FTP file transfer
+- [ ] RDP (Remote Desktop)
+- [ ] VNC connections
+- [ ] Telnet support
+- [ ] Serial port connections
+
+### Advanced Features
+- [ ] Expect scripting automation
+- [ ] Macros and snippets
+- [ ] Port forwarding (SSH tunnels)
+- [ ] Proxy jump (bastion hosts)
+- [ ] Connection templates
+
+### Security
+- [x] Credential encryption
+- [x] Master password
+- [ ] KeePassXC integration
+- [ ] Automatic lock
+
+### Cluster Operations
+- [ ] Multi-session broadcasting
+- [ ] Synchronized input
+- [ ] Cluster groups
+
+---
+
+## [0.9.3-beta] - 2026-07-09
+
+### Security: Encryption Support
+
+**Master Password Encryption**
+- Added AES-256-GCM encryption for connection data
+- PBKDF2 key derivation with 100,000 iterations
+- Master password setup on first run (optional)
+- Unlock dialog for encrypted data on app start
+- Change password functionality
+- Reset data option if password forgotten
+- Visual indicator when encryption is active (🔒)
+
+**Security Improvements**
+- Connection passwords are now encrypted at rest
+- No plaintext storage of sensitive data
+- Export produces unencrypted JSON for portability
+
+**License Change**
+- Changed from MIT License to GNU GPL v3
+- Ensures open source distribution of derivative works
+
+### Technical Details
+
+**New Files:**
+- `src/crypto.ts` - Web Crypto API encryption utilities (~150 lines)
+- `src/master-password-dialog.ts` - Master password UI (~400 lines)
+
+**Updated Files:**
+- `src/connection-tree.ts` - Integrated encryption/decryption
+- `src/main.ts` - Encryption initialization flow
+- Version bumped to 0.9.3-beta
+
+---
+
+## [0.9.2-beta] - 2026-07-09
+
+### Bug Fixes
+
+**Session Save**
+- Fixed session save functionality using native file dialog
+- Now uses Tauri's dialog plugin for proper file saving
+- Added better error handling and user feedback
+
+**SSH Key Input**
+- Improved SSH private key path input field
+- Added monospace font for better visibility of special characters
+- Added example text below the input field
+- Fixed input attributes to prevent unwanted autocorrection
+- Added input logging for debugging
+
+### Technical Changes
+
+**New Dependencies:**
+- `@tauri-apps/plugin-dialog` ^2.0.0 - Native file dialogs
+
+**Updated Files:**
+- `src-tauri/Cargo.toml` - Added dialog plugin dependency
+- `src-tauri/src/lib.rs` - Added save_session_dialog command
+- `src/terminal-manager.ts` - Updated saveActiveSession to use native dialog
+- `src/main.ts` - Updated to handle async save
+- `src/connection-dialog.ts` - Improved SSH key input field
+- `package.json` - Version bump to 0.9.2-beta
+
+---
+
+## [0.9.1-beta] - 2026-07-09
+
+### Bug Fixes & UI Improvements
+
+Fixed session save functionality, terminal overflow issues, and added theme customization.
+
+#### Fixed
+
+**Session Save**
+- Fixed buffer iteration to properly capture all terminal output including scrollback
+- Session content now correctly exports to text file
+
+**Terminal Overflow**
+- Fixed terminal extending beyond screen bounds in maximized mode
+- Added proper flex container constraints (`min-height: 0`)
+- Terminal viewport now stays within window boundaries
+
+#### Added
+
+**Resizable Connections Panel**
+- Drag handle between sidebar and terminal area for horizontal resizing
+- Sidebar width persisted in settings (150px - 600px range)
+- Double-click handle to reset to default width (250px)
+- Connection names no longer wrap - uses ellipsis for overflow
+
+**Theme Customization**
+- Ubuntu Aubergine theme as default (dark aubergine #300924 with white text)
+- New "Theme" tab in Settings dialog
+- Color preset selector: Ubuntu Aubergine, Classic Dark, Light, Custom
+- Background and foreground color pickers with hex input
+- Live preview of theme changes
+- Advanced ANSI color customization
+- Reset to Ubuntu theme button
+- Terminal theme syncs with UI background color
+
+**Version Display**
+- Version number (v0.9.1-beta) shown in status bar at bottom right
+
+#### Changed
+
+- Default terminal theme changed from VS Code Dark+ to Ubuntu Aubergine
+- Settings dialog now has 4 tabs: Appearance, Terminal, Behavior, Theme
+
+#### Technical Details
+
+**Updated Files:**
+- `src/terminal-manager.ts` - Fixed session save, use theme from settings
+- `src/main.ts` - Added sidebar resize handling
+- `src/settings.ts` - Added TerminalTheme interface and Ubuntu/Dark/Light themes
+- `src/settings-dialog.ts` - Added Theme tab with color customization
+- `src/styles.css` - Added resize handle styles, fixed overflow issues, Ubuntu colors as default
+
+---
+
+## [0.9.0] - 2026-01-08
+
+### Beta Release - Production Ready
+
+Pre-1.0 beta release with robust error handling and polish.
+
+#### Added
+
+**Error Handling & Validation**
+- Settings validation on load (recovers from corrupted settings)
+- Prevent multiple settings dialogs from opening
+- Graceful handling of localStorage errors
+- Input validation for all settings fields
+
+**Logging**
+- Reduced console spam by filtering to warnings/errors only
+- SSH debug logs suppressed in default builds
+
+**Security & Polish**
+- DevTools now only available in debug builds
+- Removed debug alerts and console spam
+- Clean error messages for users
+
+**Documentation**
+- Updated README with accurate feature list
+- Clear changelog for beta release
+
+#### Changed
+
+- Version bumped to 0.9.0 for beta release
+- Streamlined settings initialization
+
+---
+
+## [0.3.0] - 2026-01-08
+
+### Phase 3: Production Readiness & Polish
+
+Added settings persistence, themes, and UI improvements.
+
+#### Added
+
+**Settings System**
+- Settings dialog with tabs (Appearance, Terminal, Behavior)
+- Persistent user preferences in localStorage
+- Working Save/Cancel/Reset/Close buttons
+- Theme switching (Dark/Light/System) with live preview
+- Font family and size customization
+- Cursor style (Block/Line/Bar) and blink settings
+- Scrollback buffer size configuration
+- Word wrap toggle
+- Confirm close / auto-reconnect / status bar toggles
+
+**Theming**
+- Dark theme (default)
+- Light theme
+- System preference detection
+- CSS variables for easy theming
+- Live preview when changing themes
+
+**DevTools**
+- Toggle DevTools with Shift+Right Click
+
+**UI Improvements**
+- Settings button (⚙) in toolbar
+- Fullscreen mode (F11)
+- Better status bar integration
+
+#### Fixed
+
+- Settings save now works - uses inline `onclick` handlers for Tauri WebView compatibility
+- Cancel button now works - closes dialog without saving
+- Reset button now works - resets all settings to defaults with confirmation
+- Close (X) button now works - closes dialog
+- Theme changes apply immediately with live preview
+
+#### Technical Details
+
+**New Files:**
+- `src/settings.ts` - Settings management (~120 lines)
+- `src/settings-dialog.ts` - Settings UI (~400 lines)
+
+**Updated Files:**
+- `src/main.ts` - Settings integration
+- `src/terminal-manager.ts` - Apply settings API
+- `src/styles.css` - CSS variables and light theme
+- `README.md` - Updated documentation
+
+**Lines of Code:**
+- TypeScript (frontend): ~2,100 lines (+500)
+- **Total: ~3,300 lines**
+
+---
+
+## [0.2.2] - 2026-01-08
 
 ### Phase 2.2: FTP & SFTP Client
 
@@ -67,7 +310,7 @@ Added FTP and SFTP file transfer capabilities.
 
 ---
 
-## [0.2.1] - 2025-01-08
+## [0.2.1] - 2026-01-08
 
 ### Phase 2.1: Folder Management & Session Saving
 
@@ -108,7 +351,7 @@ Added folder organization and session saving capabilities.
 
 ---
 
-## [0.2.0] - 2025-01-08
+## [0.2.0] - 2026-01-08
 
 ### Phase 2: SSH Support & Enhanced UI
 
@@ -184,7 +427,7 @@ Major update with SSH connection support and significant UI improvements.
 
 ---
 
-## [0.1.0] - 2025-01-08
+## [0.1.0] - 2026-01-08
 
 ### Phase 1: MVP Release
 
@@ -253,249 +496,6 @@ Initial release with core terminal emulator functionality.
 **Build Size:**
 - Development: ~2MB
 - Production (estimated): ~8-12MB
-
----
-
-## [0.9.0] - 2025-01-08
-
-### Beta Release - Production Ready
-
-Pre-1.0 beta release with robust error handling and polish.
-
-#### Added
-
-**Error Handling & Validation**
-- Settings validation on load (recovers from corrupted settings)
-- Prevent multiple settings dialogs from opening
-- Graceful handling of localStorage errors
-- Input validation for all settings fields
-
-**Logging**
-- Reduced console spam by filtering to warnings/errors only
-- SSH debug logs suppressed in default builds
-
-**Security & Polish**
-- DevTools now only available in debug builds
-- Removed debug alerts and console spam
-- Clean error messages for users
-
-**Documentation**
-- Updated README with accurate feature list
-- Clear changelog for beta release
-
-#### Changed
-
-- Version bumped to 0.9.0 for beta release
-- Streamlined settings initialization
-
----
-
-## [0.3.0] - 2025-01-08
-
-### Phase 3: Production Readiness & Polish
-
-Added settings persistence, themes, and UI improvements.
-
-#### Added
-
-**Settings System**
-- Settings dialog with tabs (Appearance, Terminal, Behavior)
-- Persistent user preferences in localStorage
-- Working Save/Cancel/Reset/Close buttons
-- Theme switching (Dark/Light/System) with live preview
-- Font family and size customization
-- Cursor style (Block/Line/Bar) and blink settings
-- Scrollback buffer size configuration
-- Word wrap toggle
-- Confirm close / auto-reconnect / status bar toggles
-
-**Theming**
-- Dark theme (default)
-- Light theme
-- System preference detection
-- CSS variables for easy theming
-- Live preview when changing themes
-
-**DevTools**
-- Toggle DevTools with Shift+Right Click
-
-**UI Improvements**
-- Settings button (⚙) in toolbar
-- Fullscreen mode (F11)
-- Better status bar integration
-
-#### Fixed
-
-- Settings save now works - uses inline `onclick` handlers for Tauri WebView compatibility
-- Cancel button now works - closes dialog without saving
-- Reset button now works - resets all settings to defaults with confirmation
-- Close (X) button now works - closes dialog
-- Theme changes apply immediately with live preview
-
-#### Technical Details
-
-**New Files:**
-- `src/settings.ts` - Settings management (~120 lines)
-- `src/settings-dialog.ts` - Settings UI (~400 lines)
-
-**Updated Files:**
-- `src/main.ts` - Settings integration
-- `src/terminal-manager.ts` - Apply settings API
-- `src/styles.css` - CSS variables and light theme
-- `README.md` - Updated documentation
-
-**Lines of Code:**
-- TypeScript (frontend): ~2,100 lines (+500)
-- **Total: ~3,300 lines**
-
----
-
-## [0.9.3-beta] - 2025-07-09
-
-### Security: Encryption Support
-
-**Master Password Encryption**
-- Added AES-256-GCM encryption for connection data
-- PBKDF2 key derivation with 100,000 iterations
-- Master password setup on first run (optional)
-- Unlock dialog for encrypted data on app start
-- Change password functionality
-- Reset data option if password forgotten
-- Visual indicator when encryption is active (🔒)
-
-**Security Improvements**
-- Connection passwords are now encrypted at rest
-- No plaintext storage of sensitive data
-- Export produces unencrypted JSON for portability
-
-**License Change**
-- Changed from MIT License to GNU GPL v3
-- Ensures open source distribution of derivative works
-
-### Technical Details
-
-**New Files:**
-- `src/crypto.ts` - Web Crypto API encryption utilities (~150 lines)
-- `src/master-password-dialog.ts` - Master password UI (~400 lines)
-
-**Updated Files:**
-- `src/connection-tree.ts` - Integrated encryption/decryption
-- `src/main.ts` - Encryption initialization flow
-- Version bumped to 0.9.3-beta
-
----
-
-## [0.9.2-beta] - 2025-07-09
-
-### Bug Fixes
-
-**Session Save**
-- Fixed session save functionality using native file dialog
-- Now uses Tauri's dialog plugin for proper file saving
-- Added better error handling and user feedback
-
-**SSH Key Input**
-- Improved SSH private key path input field
-- Added monospace font for better visibility of special characters
-- Added example text below the input field
-- Fixed input attributes to prevent unwanted autocorrection
-- Added input logging for debugging
-
-### Technical Changes
-
-**New Dependencies:**
-- `@tauri-apps/plugin-dialog` ^2.0.0 - Native file dialogs
-
-**Updated Files:**
-- `src-tauri/Cargo.toml` - Added dialog plugin dependency
-- `src-tauri/src/lib.rs` - Added save_session_dialog command
-- `src/terminal-manager.ts` - Updated saveActiveSession to use native dialog
-- `src/main.ts` - Updated to handle async save
-- `src/connection-dialog.ts` - Improved SSH key input field
-- `package.json` - Version bump to 0.9.2-beta
-
----
-
-## [0.9.1-beta] - 2025-07-09
-
-### Bug Fixes & UI Improvements
-
-Fixed session save functionality, terminal overflow issues, and added theme customization.
-
-#### Fixed
-
-**Session Save**
-- Fixed buffer iteration to properly capture all terminal output including scrollback
-- Session content now correctly exports to text file
-
-**Terminal Overflow**
-- Fixed terminal extending beyond screen bounds in maximized mode
-- Added proper flex container constraints (`min-height: 0`)
-- Terminal viewport now stays within window boundaries
-
-#### Added
-
-**Resizable Connections Panel**
-- Drag handle between sidebar and terminal area for horizontal resizing
-- Sidebar width persisted in settings (150px - 600px range)
-- Double-click handle to reset to default width (250px)
-- Connection names no longer wrap - uses ellipsis for overflow
-
-**Theme Customization**
-- Ubuntu Aubergine theme as default (dark aubergine #300924 with white text)
-- New "Theme" tab in Settings dialog
-- Color preset selector: Ubuntu Aubergine, Classic Dark, Light, Custom
-- Background and foreground color pickers with hex input
-- Live preview of theme changes
-- Advanced ANSI color customization
-- Reset to Ubuntu theme button
-- Terminal theme syncs with UI background color
-
-**Version Display**
-- Version number (v0.9.1-beta) shown in status bar at bottom right
-
-#### Changed
-
-- Default terminal theme changed from VS Code Dark+ to Ubuntu Aubergine
-- Settings dialog now has 4 tabs: Appearance, Terminal, Behavior, Theme
-
-#### Technical Details
-
-**Updated Files:**
-- `src/terminal-manager.ts` - Fixed session save, use theme from settings
-- `src/main.ts` - Added sidebar resize handling
-- `src/settings.ts` - Added TerminalTheme interface and Ubuntu/Dark/Light themes
-- `src/settings-dialog.ts` - Added Theme tab with color customization
-- `src/styles.css` - Added resize handle styles, fixed overflow issues, Ubuntu colors as default
-
----
-
-## [Unreleased] - Planned for Phase 4
-
-### Protocol Support
-- [x] FTP file transfer
-- [ ] RDP (Remote Desktop)
-- [ ] VNC connections
-- [ ] Telnet support
-- [ ] Serial port connections
-
-### Advanced Features
-- [ ] Expect scripting automation
-- [ ] Macros and snippets
-- [ ] Port forwarding (SSH tunnels)
-- [ ] Proxy jump (bastion hosts)
-- [ ] Connection templates
-
-### Security
-- [ ] KeePassXC integration
-- [ ] Credential encryption
-- [ ] Master password
-- [ ] Automatic lock
-
-### Cluster Operations
-- [ ] Multi-session broadcasting
-- [ ] Synchronized input
-- [ ] Cluster groups
 
 ---
 
