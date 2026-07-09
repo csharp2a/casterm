@@ -1,0 +1,406 @@
+/* CSS Variables for theming - MUST be first */
+:root {
+  /* Ubuntu Aubergine Terminal Colors (Default) */
+  --bg-primary: #300924;
+  --bg-secondary: #3d0f2f;
+  --bg-tertiary: #4a163a;
+  --text-primary: #FFFFFF;
+  --text-secondary: #b392a6;
+  --border-color: #5e2750;
+  --accent-primary: #e95420;
+  --accent-hover: #c44216;
+  --terminal-font-family: 'JetBrains Mono', Consolas, monospace;
+  --terminal-font-size: 14px;
+}
+
+/* Light Theme Override */
+.light-theme {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f3f3;
+  --bg-tertiary: #e8e8e8;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --border-color: #d4d4d4;
+  --accent-primary: #0078d4;
+  --accent-hover: #106ebe;
+}
+
+/* System Theme Detection (when no explicit class is set) */
+@media (prefers-color-scheme: light) {
+  :root:not(.dark-theme) {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f3f3f3;
+    --bg-tertiary: #e8e8e8;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #d4d4d4;
+    --accent-primary: #0078d4;
+    --accent-hover: #106ebe;
+  }
+}
+
+/* App Layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  gap: 8px;
+}
+
+.toolbar button {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.toolbar button:hover {
+  background: var(--accent-hover);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.title {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Main Content */
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  min-width: 150px;
+  max-width: 600px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* Sidebar Resize Handle */
+.sidebar-resize-handle {
+  width: 5px;
+  background: var(--border-color);
+  cursor: col-resize;
+  flex-shrink: 0;
+  transition: background 0.15s;
+  position: relative;
+}
+
+.sidebar-resize-handle:hover {
+  background: var(--accent-primary);
+}
+
+.sidebar-resize-handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 24px;
+  background: var(--text-secondary);
+  border-radius: 1px;
+}
+
+.sidebar-resize-handle:hover::after {
+  background: #fff;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+}
+
+.sidebar-header button {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.connection-tree {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.connection-item {
+  user-select: none;
+}
+
+.connection-row {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.connection-row:hover {
+  background: var(--bg-tertiary);
+}
+
+.connection-row:hover .connection-actions {
+  opacity: 1;
+}
+
+.expand-icon {
+  width: 16px;
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.connection-icon {
+  width: 20px;
+  text-align: center;
+  margin-right: 6px;
+}
+
+.connection-name {
+  flex: 1;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.connection-actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.connection-actions button {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 2px 4px;
+  font-size: 12px;
+}
+
+.connection-actions button:hover {
+  color: var(--text-primary);
+}
+
+/* Terminal Area */
+.terminal-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  position: relative;
+}
+
+/* Tab Bar */
+.tab-bar {
+  display: flex;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--bg-tertiary);
+  border-right: 1px solid var(--border-color);
+  cursor: pointer;
+  min-width: 120px;
+  max-width: 200px;
+  transition: background 0.15s;
+}
+
+.tab:hover {
+  background: var(--bg-secondary);
+}
+
+.tab.active {
+  background: var(--bg-primary);
+}
+
+.tab-name {
+  flex: 1;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab-close {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0 4px;
+  margin-left: 8px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.tab-close:hover {
+  color: #fff;
+  background: #c75450;
+  border-radius: 3px;
+}
+
+/* Terminal Container */
+.terminal-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-instance {
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-instance .xterm {
+  height: 100%;
+  width: 100%;
+}
+
+/* Ensure xterm viewport doesn't overflow */
+.terminal-instance .xterm-viewport {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Status Bar */
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px;
+  background: var(--accent-primary);
+  color: #fff;
+  font-size: 12px;
+  gap: 16px;
+}
+
+.status-bar .version-display {
+  margin-left: auto;
+  font-size: 11px;
+  opacity: 0.9;
+  font-family: var(--terminal-font-family);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* xterm.js Overrides */
+.xterm-viewport {
+  background-color: transparent !important;
+}
+
+/* Dialog Styles */
+.dialog-overlay {
+  animation: fadeIn 0.2s ease;
+}
+
+.connection-dialog {
+  animation: slideIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Form Styles */
+.form-group label {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent-primary) !important;
+}
+
+/* Tab Icons */
+.tab-icon {
+  margin-right: 6px;
+  font-size: 12px;
+}
+
+/* Connection Tree Search */
+#conn-search:focus {
+  outline: none;
+  border-color: var(--accent-primary) !important;
+}
+
+/* Connection Row Hover */
+.connection-row {
+  transition: background 0.15s, color 0.15s;
+}
