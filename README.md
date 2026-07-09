@@ -4,7 +4,7 @@ A modern, cross-platform connection and terminal manager built with Tauri 2, Rus
 
 ![Version](https://img.shields.io/badge/version-0.9.3--beta-blue)
 > **Beta Release** - Testing phase before v1.0. See [BUILD.md](BUILD.md) for build instructions.
-![License](https://img.shields.io/badge/license-MIT-green)
+![License](https://img.shields.io/badge/license-GPL%20v3-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
 
 ## Features
@@ -334,7 +334,7 @@ Save terminal session output for later review:
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file for details.
+GNU General Public License v3.0 or later (GPL-3.0-or-later) - see [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
