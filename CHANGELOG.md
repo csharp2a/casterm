@@ -368,6 +368,10 @@ Added settings persistence, themes, and UI improvements.
 - No plaintext storage of sensitive data
 - Export produces unencrypted JSON for portability
 
+**License Change**
+- Changed from MIT License to GNU GPL v3
+- Ensures open source distribution of derivative works
+
 ### Technical Details
 
 **New Files:**
