@@ -1,6 +1,6 @@
 [package]
 name = "casterm"
-version = "0.9.4"
+version = "0.9.5"
 description = "Casterm - Cross-platform connection and terminal manager"
 authors = ["Casterm Team"]
 license = "GPL-3.0-or-later"
