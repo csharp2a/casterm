@@ -41,6 +41,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.4-beta] - 2026-07-10
+
+### Build: Windows Icon Fix
+
+**Fixed**
+- Added missing `icon.ico` file required for Windows builds
+- Updated `tauri.conf.json` to include Windows icon in bundle configuration
+
+**Technical Changes**
+- Created `src-tauri/icons/icon.ico` from existing PNG icon
+- Fixed GitHub Actions Windows build failure
+
+---
+
 ## [0.9.3-beta] - 2026-07-09
 
 ### Security: Encryption Support
