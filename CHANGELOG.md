@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.5] - 2026-07-10
+
+### Fixed
+- **Windows Local Terminal**: Fixed shell detection to use PowerShell/cmd.exe instead of Unix `/bin/sh`
+  - Now detects PowerShell 7+ (`pwsh.exe`), Windows PowerShell, or falls back to `cmd.exe`
+  - Previously tried to spawn `/bin/sh` on Windows causing "system cannot find the path specified" error
+
+### Changed
+- **Build**: Removed macOS from GitHub Actions build workflow
+  - macOS builds disabled until ready for macOS support
+  - GitHub releases now only include Windows (.msi) and Linux (.deb, .rpm, .AppImage) installers
+  - Updated README.md and BUILD.md to remove macOS references
+
+## [Unreleased]
+
 ### Protocol Support
 - [x] FTP file transfer
 - [ ] RDP (Remote Desktop)
