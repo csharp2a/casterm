@@ -360,5 +360,3 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and planned featur
 - Credential encryption
 - Cluster operations
 - Plugin system
-
-Test
