@@ -28,13 +28,6 @@ This creates platform-specific installers in:
 npm run tauri build -- --target x86_64-pc-windows-msvc
 ```
 
-**macOS (.dmg installer):**
-```bash
-npm run tauri build -- --target x86_64-apple-darwin
-# For Apple Silicon:
-npm run tauri build -- --target aarch64-apple-darwin
-```
-
 **Linux (.AppImage, .deb):**
 ```bash
 npm run tauri build -- --target x86_64-unknown-linux-gnu
@@ -47,7 +40,6 @@ After building, you'll find installers in:
 ```
 src-tauri/target/release/bundle/
 ├── msi/          # Windows installer
-├── dmg/          # macOS installer  
 ├── appimage/     # Linux AppImage
 ├── deb/          # Linux Debian package
 └── rpm/          # Linux RPM package (if enabled)
@@ -62,21 +54,12 @@ export WINDOWS_CERTIFICATE_PATH="/path/to/certificate.pfx"
 export WINDOWS_CERTIFICATE_PASSWORD="your-password"
 ```
 
-### macOS
-Requires Apple Developer account:
-```bash
-export APPLE_SIGNING_IDENTITY="Developer ID Application: Your Name"
-export APPLE_ID="your-apple-id@example.com"
-export APPLE_PASSWORD="app-specific-password"
-```
-
 ## Beta Testing Checklist
 
 Before distributing the beta:
 
 1. **Test on target platforms:**
    - [ ] Windows 10/11
-   - [ ] macOS (Intel & Apple Silicon if possible)
    - [ ] Linux (Ubuntu/Debian, Fedora)
 
 2. **Test core features:**
@@ -126,8 +109,6 @@ See [INSTALL-LINUX.md](INSTALL-LINUX.md) for detailed Linux installation instruc
 
 **Other platforms:**
 - `casterm_0.9.0_x64_en-US.msi` (Windows)
-- `casterm_0.9.0_x64.dmg` (macOS Intel)
-- `casterm_0.9.0_aarch64.dmg` (macOS Apple Silicon)
 - `casterm_0.9.0_amd64.deb` (Debian/Ubuntu - requires dependency install)
 - `Casterm-0.9.0-1.x86_64.rpm` (Fedora/RHEL - requires dependency install)
 

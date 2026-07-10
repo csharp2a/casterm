@@ -5,7 +5,7 @@ A modern, cross-platform connection and terminal manager built with Tauri 2, Rus
 ![Version](https://img.shields.io/badge/version-0.9.3--beta-blue)
 > **Beta Release** - Testing phase before v1.0. See [BUILD.md](BUILD.md) for build instructions.
 ![License](https://img.shields.io/badge/license-GPL%20v3-blue)
-![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey)
 
 ## Features
 
@@ -14,7 +14,7 @@ A modern, cross-platform connection and terminal manager built with Tauri 2, Rus
 - ✅ **PTY management** - Native pseudoterminal via `portable-pty`
 - ✅ **xterm.js rendering** - WebGL-accelerated terminal with 256 colors
 - ✅ **Connection tree** - Organize local and remote connections
-- ✅ **Cross-platform** - Windows (ConPTY), macOS, Linux (forkpty)
+- ✅ **Cross-platform** - Windows (ConPTY), Linux (forkpty)
 - ✅ **Keyboard shortcuts** - Ctrl+T new tab, Ctrl+W close tab
 
 ### Phase 2 (New)
@@ -105,10 +105,6 @@ npm run tauri build
 **Windows:**
 - Requires Windows 10 build 19041+ for ConPTY support
 - Falls back to WinPTY on older versions
-
-**macOS:**
-- Requires macOS 10.13+
-- May need to allow terminal access in Security preferences
 
 **Linux:**
 - See [INSTALL-LINUX.md](INSTALL-LINUX.md) for installation instructions
@@ -223,7 +219,7 @@ Organize your connections into folders for easy access:
 
 ## Settings & Customization
 
-Press `Ctrl+,` (Cmd+, on Mac) or click the ⚙ button in the toolbar to open Settings.
+Press `Ctrl+,` or click the ⚙ button in the toolbar to open Settings.
 
 **DevTools:** Shift+Right Click anywhere to toggle DevTools (for debugging).
 

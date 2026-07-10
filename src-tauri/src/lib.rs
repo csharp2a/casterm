@@ -36,15 +36,37 @@ impl PtyState {
 }
 
 fn detect_shell() -> String {
-    if let Ok(shell) = std::env::var("SHELL") {
-        return shell;
-    }
-    for candidate in &["/bin/zsh", "/bin/bash", "/bin/sh"] {
-        if std::path::Path::new(candidate).exists() {
-            return candidate.to_string();
+    // Unix: check SHELL environment variable
+    #[cfg(not(target_os = "windows"))]
+    {
+        if let Ok(shell) = std::env::var("SHELL") {
+            return shell;
         }
+        for candidate in &["/bin/zsh", "/bin/bash", "/bin/sh"] {
+            if std::path::Path::new(candidate).exists() {
+                return candidate.to_string();
+            }
+        }
+        return "/bin/sh".to_string();
     }
-    "/bin/sh".to_string()
+
+    // Windows: check common PowerShell locations, fall back to cmd.exe
+    #[cfg(target_os = "windows")]
+    {
+        // Check for PowerShell 7+ (pwsh) first, then Windows PowerShell
+        let candidates = [
+            "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+            "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
+            "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        ];
+        for candidate in &candidates {
+            if std::path::Path::new(candidate).exists() {
+                return candidate.to_string();
+            }
+        }
+        // Fall back to cmd.exe which should always exist
+        "C:\\Windows\\System32\\cmd.exe".to_string()
+    }
 }
 
 #[tauri::command]
