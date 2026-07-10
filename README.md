@@ -2,8 +2,8 @@
 
 A modern, cross-platform connection and terminal manager built with Tauri 2, Rust, and xterm.js. Designed for speed, simplicity, and productivity.
 
-![Version](https://img.shields.io/badge/version-0.9.3--beta-blue)
-> **Beta Release** - Testing phase before v1.0. See [BUILD.md](BUILD.md) for build instructions.
+![Version](https://img.shields.io/badge/version-0.9.5-blue)
+> See [BUILD.md](BUILD.md) for build instructions.
 ![License](https://img.shields.io/badge/license-GPL%20v3-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey)
 
