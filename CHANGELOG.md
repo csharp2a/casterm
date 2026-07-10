@@ -32,6 +32,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] Synchronized input
 - [ ] Cluster groups
 
+### Release / Distribution
+- [ ] Code signing for Windows (certificate-based)
+- [ ] Code signing for macOS (Apple Developer ID + notarization)
+- [ ] Linux package signing (GPG for AppImage, deb, rpm)
+- [ ] GitHub Actions automated release builds
+- [ ] Auto-updater with Tauri signing keys
+
 ---
 
 ## [0.9.3-beta] - 2026-07-09
