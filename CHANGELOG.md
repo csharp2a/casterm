@@ -41,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.9.4-beta] - 2026-07-10
+## [0.9.4] - 2026-07-10
 
 ### Build: Windows Icon Fix
 
