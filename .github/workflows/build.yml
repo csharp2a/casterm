@@ -14,10 +14,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: 'macos-latest'   # Apple Silicon (M1/M2/M3...)
-            args: '--target aarch64-apple-darwin'
-          - platform: 'macos-latest'   # Intel Macs
-            args: '--target x86_64-apple-darwin'
           - platform: 'ubuntu-22.04'   # Linux: .deb, .rpm, .AppImage
             args: ''
           - platform: 'windows-latest' # Windows: .msi
@@ -34,8 +30,6 @@ jobs:
  
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
  
       - name: Cache Rust build
         uses: swatinem/rust-cache@v2
